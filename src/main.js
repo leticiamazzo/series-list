@@ -2,17 +2,17 @@ import api from './api';
 
 class App {
   constructor() {
-    this.repositories = [];
+    this.series = [];
 
-    this.formElement = document.getElementById('repo-form');
-    this.inputElement = document.querySelector('input[name=repository]')
-    this.listElement = document.getElementById('repo-list');
+    this.formElement = document.getElementById('serie-form');
+    this.inputElement = document.querySelector('input[name=serie-title]')
+    this.listElement = document.getElementById('serie-list');
   
     this.registerEvent();
   }
 
   registerEvent() {
-    this.formElement.onsubmit = event => this.addRepository(event);
+    this.formElement.onsubmit = event => this.addSerie(event);
   }
 
   setLoading(loading = true) {
@@ -27,27 +27,27 @@ class App {
     }
   }
 
-  async addRepository(event) {
+  async addSerie(event) {
     event.preventDefault();
 
-    const repoInput = this.inputElement.value;
+    const serieInput = this.inputElement.value;
     
     this.setLoading();
 
     try {
-      if (repoInput.length === 0) {
+      if (serieInput.length === 0) {
         return;
       }
-;
-      const response = await api.get(`/singlesearch/shows?q=${repoInput}`);
+
+      const response = await api.get(`/singlesearch/shows?q=${serieInput}`);
   
-      const { name, genres, summary, officialSite, image: { original } } = response.data;
+      const { image: { original }, name, genres, summary, officialSite } = response.data;
   
-      this.repositories.push({
+      this.series.push({
+        original,
         name,
         genres,
         summary,
-        original,
         officialSite
       });
   
@@ -55,7 +55,7 @@ class App {
       
       this.render();
     } catch(err) {
-      alert(`O repositório "${repoInput}" não existe`)
+      alert(`Desculpe! Não encontramos a série "${serieInput}" =/`)
       this.inputElement.value = '';
     }
 
@@ -65,22 +65,22 @@ class App {
   render() {
     this.listElement.innerHTML = '';
 
-    this.repositories.forEach(repo => {
+    this.series.forEach(serie => {
       let imgEl = document.createElement('img');
-      imgEl.setAttribute('src', repo.original);
+      imgEl.setAttribute('src', serie.original);
 
       let titleEl = document.createElement('strong');
-      titleEl.appendChild(document.createTextNode(repo.name));
+      titleEl.appendChild(document.createTextNode(serie.name));
 
       let descriptionEl = document.createElement('p');
-      descriptionEl.appendChild(document.createTextNode(repo.summary));
+      descriptionEl.appendChild(document.createTextNode(serie.summary));
 
       let genresEl = document.createElement('p');
-      genresEl.appendChild(document.createTextNode(repo.genres));
+      genresEl.appendChild(document.createTextNode(serie.genres));
 
       let linkEl = document.createElement('a');
       linkEl.setAttribute('target', '_blank');
-      linkEl.setAttribute('href', repo.officialSite);
+      linkEl.setAttribute('href', serie.officialSite);
       linkEl.appendChild(document.createTextNode('Acessar'));
 
       let listItemEl = document.createElement('li');

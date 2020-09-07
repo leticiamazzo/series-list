@@ -3,7 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: Roboto, sans-serif;
+    }
+
+    body {
+      background: #dfadef;
+    }
+
+    form {
+      margin: 20px;
+    }
+
+    h1 {
+      margin: 20px;
+      color: #fff;
+    }
+
+    input {
+      padding: 10px;
+      border: 2px solid #f0650e;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: 2px solid #f0650e;
+      border-radius: 5px;
+      color: #f0650e;
+      background: #fff;
+      font-weight: bold;
+    }
+
     ul {
       list-style: none;
       margin: 0;
@@ -12,14 +52,22 @@
     }
 
     li {
+      margin: 20px;
+      height: 316px;
       clear: both;
-      margin-top: 20px;
+      border: 1px solid #f0650e;
+      margin: 20px;
+      clear: both;
+      border: 2px solid #f0650e;
+      padding: 10px;
+      border-radius: 10px;
+      background: #ffffd1;
     }
 
     img {
       width: 200px;
       float: left;
-      margin-right: 20px;
+      margin: 0 20px 20px 0;
     }
 
     strong {
@@ -36,12 +84,13 @@
   </style>
 </head>
 <body>
-  <form id="repo-form">
-    <input type="text" name="repository">
+  <h1>Faça uma lista com suas séries preferidas <3</h1>
+  <form id="serie-form">
+    <input type="text" name="serie-title" placeholder="Série">
     <button type="submit">Adicionar</button>
   </form>
 
-  <ul id="repo-list"></ul>
+  <ul id="serie-list"></ul>
 
   <script src="./bundle.js"></script>
 </body>
